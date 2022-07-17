@@ -23,7 +23,7 @@ namespace WriteAllWords
             }
         }
 
-        public static void ReadData()
+        public static bool ReadData()
         {
             string path = Directory.GetCurrentDirectory() + "\\words_alpha.txt";
 
@@ -39,20 +39,33 @@ namespace WriteAllWords
                     }
                 }
             }
+            catch(FileNotFoundException e)
+            {
+                Console.WriteLine("words_alpha.txt is not found. Make sure there is a text file named 'words_alpha' in the folder.");
+                return false;
+            }
             catch(Exception e)
             {
-                Console.WriteLine(e);
-                Console.WriteLine("Reading file failed");
+                return false;
             }
 
             Console.WriteLine("File Read");
+            return true;
         }
 
 
-        public static List<string> GetWords(char startingLetter, string? contains, int length)
+        public static List<string> GetWords(char startingLetter, string contains, int length)
         {
-            if (contains == null)
-                return wordsTable[startingLetter].Where(x => x.Length == length).ToList();
+            if(!wordsTable.ContainsKey(startingLetter))
+            {
+                Console.WriteLine("Invalid character is provided.");
+                return null;
+            }
+
+            if(length <= 0)
+            {
+                return wordsTable[startingLetter].Where(x => x.Contains(contains)).ToList();
+            }
 
             return wordsTable[startingLetter].Where(x => x.Length == length && x.Contains(contains)).ToList();
         }

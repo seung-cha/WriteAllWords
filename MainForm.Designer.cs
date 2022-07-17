@@ -35,12 +35,13 @@
             this.ContainsInput = new System.Windows.Forms.TextBox();
             this.LengthInput = new System.Windows.Forms.TextBox();
             this.PrintButton = new System.Windows.Forms.Button();
+            this.StopButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ContainsBox
             // 
             this.ContainsBox.AutoSize = true;
-            this.ContainsBox.Location = new System.Drawing.Point(141, 34);
+            this.ContainsBox.Location = new System.Drawing.Point(134, 15);
             this.ContainsBox.Name = "ContainsBox";
             this.ContainsBox.Size = new System.Drawing.Size(54, 15);
             this.ContainsBox.TabIndex = 0;
@@ -49,7 +50,7 @@
             // StartsWithBox
             // 
             this.StartsWithBox.AutoSize = true;
-            this.StartsWithBox.Location = new System.Drawing.Point(33, 34);
+            this.StartsWithBox.Location = new System.Drawing.Point(26, 15);
             this.StartsWithBox.Name = "StartsWithBox";
             this.StartsWithBox.Size = new System.Drawing.Size(66, 15);
             this.StartsWithBox.TabIndex = 1;
@@ -58,7 +59,7 @@
             // LengthBox
             // 
             this.LengthBox.AutoSize = true;
-            this.LengthBox.Location = new System.Drawing.Point(250, 34);
+            this.LengthBox.Location = new System.Drawing.Point(243, 15);
             this.LengthBox.Name = "LengthBox";
             this.LengthBox.Size = new System.Drawing.Size(44, 15);
             this.LengthBox.TabIndex = 2;
@@ -66,7 +67,7 @@
             // 
             // StartInput
             // 
-            this.StartInput.Location = new System.Drawing.Point(33, 65);
+            this.StartInput.Location = new System.Drawing.Point(26, 46);
             this.StartInput.Name = "StartInput";
             this.StartInput.Size = new System.Drawing.Size(100, 23);
             this.StartInput.TabIndex = 3;
@@ -74,7 +75,7 @@
             // 
             // ContainsInput
             // 
-            this.ContainsInput.Location = new System.Drawing.Point(141, 65);
+            this.ContainsInput.Location = new System.Drawing.Point(134, 46);
             this.ContainsInput.Name = "ContainsInput";
             this.ContainsInput.Size = new System.Drawing.Size(100, 23);
             this.ContainsInput.TabIndex = 4;
@@ -82,7 +83,7 @@
             // 
             // LengthInput
             // 
-            this.LengthInput.Location = new System.Drawing.Point(250, 65);
+            this.LengthInput.Location = new System.Drawing.Point(243, 46);
             this.LengthInput.Name = "LengthInput";
             this.LengthInput.Size = new System.Drawing.Size(100, 23);
             this.LengthInput.TabIndex = 5;
@@ -90,7 +91,7 @@
             // 
             // PrintButton
             // 
-            this.PrintButton.Location = new System.Drawing.Point(418, 65);
+            this.PrintButton.Location = new System.Drawing.Point(375, 46);
             this.PrintButton.Name = "PrintButton";
             this.PrintButton.Size = new System.Drawing.Size(75, 23);
             this.PrintButton.TabIndex = 6;
@@ -98,9 +99,20 @@
             this.PrintButton.UseVisualStyleBackColor = true;
             this.PrintButton.Click += new System.EventHandler(this.PrintButton_Click);
             // 
+            // StopButton
+            // 
+            this.StopButton.Location = new System.Drawing.Point(456, 45);
+            this.StopButton.Name = "StopButton";
+            this.StopButton.Size = new System.Drawing.Size(75, 23);
+            this.StopButton.TabIndex = 7;
+            this.StopButton.Text = "Terminate";
+            this.StopButton.UseVisualStyleBackColor = true;
+            this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
+            // 
             // MainForm
             // 
-            this.ClientSize = new System.Drawing.Size(530, 138);
+            this.ClientSize = new System.Drawing.Size(552, 83);
+            this.Controls.Add(this.StopButton);
             this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.LengthInput);
             this.Controls.Add(this.ContainsInput);
@@ -126,5 +138,6 @@
         private TextBox ContainsInput;
         private TextBox LengthInput;
         private Button PrintButton;
+        private Button StopButton;
     }
 }

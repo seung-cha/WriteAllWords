@@ -12,10 +12,16 @@ namespace WriteAllWords
             // see https://aka.ms/applicationconfiguration.
 
             Words.Initialise();
-            Words.ReadData();
 
-            ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
+            if (Words.ReadData())
+            {
+                ApplicationConfiguration.Initialize();
+                Application.Run(new MainForm());
+            }
+            else
+            {
+                Console.WriteLine("The program could not read words data.");
+            }
         }
     }
 }

@@ -5,8 +5,12 @@ namespace WriteAllWords
     public partial class MainForm : Form
     {
         int length = 0;
-        string containedSequence = null;
-        string startsWith = "";
+        string containedSequence = "";
+        char startsWith = '.';
+
+        bool intParsed = false;
+
+        bool startTyping = false;
         
         public MainForm()
         {
@@ -20,7 +24,13 @@ namespace WriteAllWords
 
         private void StartInput_TextChanged(object sender, EventArgs e)
         {
-            startsWith = StartInput.Text;
+            if(StartInput.Text == null)
+            {
+                startsWith = '.';
+                return;
+            }
+
+            startsWith = char.ToLower(StartInput.Text[0]);
         }
 
         private void ContainsInput_TextChanged(object sender, EventArgs e)
@@ -30,36 +40,61 @@ namespace WriteAllWords
 
         private void LengthInput_TextChanged(object sender, EventArgs e)
         {
-           int.TryParse(LengthInput.Text, out length);
+          intParsed = int.TryParse(LengthInput.Text, out length);
         }
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Button clicked");
-            if (startsWith == null || startsWith.Length == 0 || length <= 0)
+
+            if(!intParsed)
             {
-                Console.WriteLine("Invalid input provided");
+                Console.WriteLine("Length is undefined.");
                 return;
             }
 
-            var items = Words.GetWords(startsWith[0], containedSequence, length);
+            var items = Words.GetWords(startsWith, containedSequence, length);
 
-            foreach(var i in items)
+            if(items == null)
             {
-                Console.WriteLine(i);
+                return;
             }
-            if(items.Count != 0)
-            {
-                Thread.Sleep(TimeSpan.FromSeconds(2));
-                foreach (var i in items)
-                {               
-                    SendKeys.Send(i);
-                    Thread.Sleep(TimeSpan.FromSeconds(0.2));
-                    SendKeys.Send("{Enter}");
-                }
-            }
+
+            startTyping = true;
+            StopButton.Select();
+            WriteSolutions(items);
         }
 
+        private void StopButton_Click(object sender, EventArgs e)
+        {
+            startTyping = false;
+        }
+
+
+
+        async void WriteSolutions(List<string> words)
+        {
+            foreach (var x in words)
+            {
+                Console.WriteLine(x);
+            }
+
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            int i = 0;
+            await Task.Run(() =>
+            {
+                while (startTyping && i < words.Count)
+                {
+                    SendKeys.SendWait(words[i]);
+                    Thread.Sleep(TimeSpan.FromSeconds(0.5f));
+                    SendKeys.SendWait("{Enter}");
+                    i++;
+                }
+
+            });
+            
+        }
 
     }
 }
