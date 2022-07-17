@@ -12,6 +12,7 @@ namespace WriteAllWords
     {
         static Dictionary<char, LinkedList<string>> wordsTable;
 
+        public static bool fileRead = false;
 
         public static void Initialise()
         {
@@ -42,14 +43,17 @@ namespace WriteAllWords
             catch(FileNotFoundException e)
             {
                 Console.WriteLine("words_alpha.txt is not found. Make sure there is a text file named 'words_alpha' in the folder.");
+                fileRead = false;
                 return false;
             }
             catch(Exception e)
             {
+                fileRead = false;
                 return false;
             }
 
             Console.WriteLine("File Read");
+            fileRead = true;
             return true;
         }
 

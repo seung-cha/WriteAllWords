@@ -13,15 +13,13 @@ namespace WriteAllWords
 
             Words.Initialise();
 
-            if (Words.ReadData())
+            if (!Words.ReadData())
             {
+                Console.WriteLine("Something went wrong while reading words.");
+            }
                 ApplicationConfiguration.Initialize();
                 Application.Run(new MainForm());
-            }
-            else
-            {
-                Console.WriteLine("The program could not read words data.");
-            }
+            
         }
     }
 }

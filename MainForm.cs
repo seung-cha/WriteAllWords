@@ -24,7 +24,7 @@ namespace WriteAllWords
 
         private void StartInput_TextChanged(object sender, EventArgs e)
         {
-            if(StartInput.Text == null)
+            if(StartInput.Text == null || StartInput.Text.Length == 0)
             {
                 startsWith = '.';
                 return;
@@ -45,6 +45,12 @@ namespace WriteAllWords
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
+
+            if(!Words.fileRead)
+            {
+                Console.WriteLine("Make sure there's a words_alpha.txt file in the folder.");
+                return;
+            }
             Console.WriteLine("Button clicked");
 
             if(!intParsed)
@@ -55,7 +61,7 @@ namespace WriteAllWords
 
             var items = Words.GetWords(startsWith, containedSequence, length);
 
-            if(items == null)
+            if(items == null || items.Count == 0)
             {
                 return;
             }
@@ -79,11 +85,12 @@ namespace WriteAllWords
                 Console.WriteLine(x);
             }
 
-            Thread.Sleep(TimeSpan.FromSeconds(2));
 
             int i = 0;
             await Task.Run(() =>
             {
+                Thread.Sleep(TimeSpan.FromSeconds(2));
+
                 while (startTyping && i < words.Count)
                 {
                     SendKeys.SendWait(words[i]);
